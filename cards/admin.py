@@ -4,9 +4,10 @@ from .models import OnePieceGameCard, Set
 
 @admin.register(Set)
 class SetAdmin(admin.ModelAdmin):
-    pass
+    list_display=['name','code']
 
 
 @admin.register(OnePieceGameCard)
 class OnePieceGameCardAdmin(admin.ModelAdmin):
-    pass
+    list_display=['name','code']
+

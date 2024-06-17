@@ -7,7 +7,9 @@ class Set(BaseProduct):
     game = models.CharField(max_length=100)
     release_date = models.DateField(null=True)
 
-
+    def __str__(self):
+        return f"{self.code} {self.name}"
+    
 class Card(BaseProduct):
     code = models.CharField(max_length=10)
     card_set = models.ForeignKey(
@@ -55,3 +57,6 @@ class OnePieceGameCard(Card):
     traits = models.TextField()
     type = models.CharField(max_length=1, choices=TYPES_CHOICES)
     rarity = models.CharField(max_length=5, choices=RARITY_CHOICES, null=True)
+
+    def __str__(self):
+        return f"{self.code} {self.name}"
