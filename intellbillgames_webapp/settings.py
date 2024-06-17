@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "rest_framework",
     "accounts",
+    "inventory",
     "cards",
 ]
 
@@ -39,7 +40,7 @@ ROOT_URLCONF = "intellbillgames_webapp.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -85,6 +86,9 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
+MEDIA_URL = "media/"
+MEDIA_ROOT = "media/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "accounts.user"
 PHONENUMBER_DEFAULT_REGION = "EC"
+LOGIN_URL="/login"

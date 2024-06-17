@@ -1,17 +1,18 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+from django.utils.translation import gettext_lazy as _
+
+
+class Customer(models.Model):
+    first_name = models.CharField(_("first name"), max_length=150, blank=True)
+    last_name = models.CharField(_("last name"), max_length=150, blank=True)
+    phone = PhoneNumberField()
 
 
 class User(AbstractUser):
     first_name = None
     last_name = None
-
-
-
-class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = AbstractUser.first_name
-    last_name = AbstractUser.last_name
-    document_number = models.CharField(max_length=20)
-    phone = PhoneNumberField()
+    customer = models.OneToOneField(
+        Customer, on_delete=models.CASCADE, related_name="customer", null=True
+    )

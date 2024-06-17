@@ -3,6 +3,9 @@ from django.contrib.auth.admin import UserAdmin
 from .models import User, Customer
 from django.utils.translation import gettext_lazy as _
 
+admin.site.site_header = "Intell Bill Games"
+admin.site.site_title = "Intell Bill Games"
+
 
 @admin.register(User)
 class UserAdmin(UserAdmin):
@@ -27,6 +30,12 @@ class UserAdmin(UserAdmin):
     )
 
 
+class UserInline(admin.StackedInline):
+    model = User
+    fieldsets = ((None, {"fields": ("username", "password", "email")}),)
+    readonly_fields = ("password",)
+
+
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    pass
+    inlines = (UserInline,)

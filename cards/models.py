@@ -1,23 +1,19 @@
 from django.db import models
+from inventory.models import BaseProduct
 
 
-def img_path(instance, filename):
-    return f"cards/{instance.set.game}/{instance.set.code}/{instance.name}"
-
-
-class Set(models.Model):
-    code = models.CharField(max_length=5,unique=True)
+class Set(BaseProduct):
+    code = models.CharField(max_length=5, unique=True)
     game = models.CharField(max_length=100)
-    name = models.CharField(max_length=200)
     release_date = models.DateField(null=True)
 
 
-class Card(models.Model):
+class Card(BaseProduct):
     code = models.CharField(max_length=10)
-    set = models.ForeignKey(
+    card_set = models.ForeignKey(
         Set, related_name="cards", on_delete=models.SET_NULL, null=True
     )
-    price = models.DecimalField(decimal_places=2, max_digits=6)
+    alternate_art = models.BooleanField(default=False)
 
     class Meta:
         abstract = True
@@ -52,7 +48,6 @@ class OnePieceGameCard(Card):
         (PROMO, "Promo"),
     ]
 
-    name = models.CharField(max_length=200)
     rotation = models.IntegerField()
     cost = models.IntegerField()
     power = models.IntegerField()
@@ -60,4 +55,3 @@ class OnePieceGameCard(Card):
     traits = models.TextField()
     type = models.CharField(max_length=1, choices=TYPES_CHOICES)
     rarity = models.CharField(max_length=5, choices=RARITY_CHOICES, null=True)
-    imagen = models.ImageField(upload_to=img_path, null=True)
