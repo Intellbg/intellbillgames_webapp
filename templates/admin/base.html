@@ -3,7 +3,7 @@
     :root {
         --primary: #37265d;
         --secondary: #593e92 !important;
-        --accent:var(--body-fg) !important;
+        --accent: var(--body-fg) !important;
         --primary-fg: #f7f7f7;
         --body-fg: #eeeeee;
         --body-bg: #121212;
@@ -27,4 +27,8 @@
         --close-button-hover-bg: #666666;
     }
 </style>
+<div style="display: flex;">
+    <a href="{% url 'room' room_name='support' %}" style="text-align: right; width: 100%; margin-right: 1em;">Support
+        Chat</a>
+</div>
 {% endblock %}

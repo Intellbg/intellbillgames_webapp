@@ -12,6 +12,8 @@ DEBUG = os.getenv("DEBUG") == "1"
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 
 INSTALLED_APPS = [
+    "daphne",
+    "chat",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -91,4 +93,13 @@ MEDIA_ROOT = "media/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "accounts.user"
 PHONENUMBER_DEFAULT_REGION = "EC"
-LOGIN_URL="/login"
+LOGIN_URL = "/login"
+ASGI_APPLICATION = "intellbillgames_webapp.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}

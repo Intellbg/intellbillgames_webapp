@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 import accounts.views as v
 from intellbillgames_webapp import settings
 import inventory.views as i
@@ -19,4 +19,5 @@ urlpatterns = [
         i.remove_from_order,
         name="remove_from_order",
     ),
+    path("chat/", include("chat.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -56,6 +56,9 @@
                     <a class="nav-link" href="{% url 'order_detail' %}">Order</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'room' room_name='support' %}">Chat</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">logout</a>
                 </li>
                 {% else %}
