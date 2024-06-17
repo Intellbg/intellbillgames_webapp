@@ -24,7 +24,6 @@ class SignupForm(UserCreationForm):
         user = User.objects.create(
             username=self.cleaned_data["email"],
             email=self.cleaned_data["email"],
-            is_staff=True,
         )
         user.set_password(self.cleaned_data["password1"])
         customer = Customer.objects.create(
