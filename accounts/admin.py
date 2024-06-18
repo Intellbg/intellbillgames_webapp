@@ -38,4 +38,5 @@ class UserInline(admin.StackedInline):
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
+    list_display = ("last_name", "first_name")
     inlines = (UserInline,)

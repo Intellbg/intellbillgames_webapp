@@ -10,6 +10,10 @@
         .navbar {
             background-color: #37265d;
         }
+        
+        .navbar a {
+            color: #f8f9fa;
+        }
 
         .navbar-brand {
             color: #fff !important;
@@ -19,7 +23,30 @@
 
 <body>
     <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">My Shop</a>
+        <a class="navbar-brand" href="/">Intell Bill Games</a>
+        ss="navbar-brand" href="/">Intell Bill Games</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'order_detail' %}">Order</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'room' room_name='support' %}">Chat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </nav>
 
     <div class="container">
@@ -35,12 +62,12 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in order.orderitem_set.all %}
+                {% for item in order.orderdetail_set.all %}
                 <tr>
                     <td>{{ item.product.name }}</td>
                     <td>{{ item.quantity }}</td>
                     <td>${{ item.product.price }}</td>
-                    <td>${{ item.product.price * item.quantity }}</td>
+                    <td>${% widthratio item.product.price 1 item.quantity %}</td>
                     <td>
                         <a href="{% url 'remove_from_order' item.product.id %}" class="btn btn-danger btn-sm">Remove</a>
                     </td>

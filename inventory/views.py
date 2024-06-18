@@ -15,16 +15,16 @@ def shop(request):
 
 @login_required
 def order_detail(request):
-    order, created = Order.objects.get_or_create(user=request.user)
+    order, created = Order.objects.get_or_create(customer=request.user.customer)
     return render(request, "inventory/order_detail.html", {"order": order})
 
 
 @login_required
 def add_to_order(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    order, created = order.objects.get_or_create(user=request.user)
+    product = get_object_or_404(BaseProduct, id=product_id)
+    order, created = Order.objects.get_or_create(customer=request.user.customer)
     order_item, created = OrderDetail.objects.get_or_create(
-        order=order, product=product
+        order=order, product=product, defaults={"quantity":1}
     )
 
     if not created:
@@ -36,9 +36,8 @@ def add_to_order(request, product_id):
 
 @login_required
 def remove_from_order(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    order = get_object_or_404(order, user=request.user)
+    product = get_object_or_404(BaseProduct, id=product_id)
+    order = get_object_or_404(Order, customer=request.user.customer)
     order_item = get_object_or_404(OrderDetail, order=order, product=product)
-
     order_item.delete()
     return redirect("order_detail")
